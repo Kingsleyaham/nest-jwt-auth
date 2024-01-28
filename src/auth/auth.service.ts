@@ -37,6 +37,10 @@ export class AuthService {
     return this.jwtService.signAsync(payload, { expiresIn: '3d', secret });
   }
 
+  async checkIfTokenExist(token: string) {
+    return this.tokenService.checkIfTokenExist(token);
+  }
+
   /**
    * Logins a user in follwing the following steps
    * - checks if the provided email matches a user email. throws an error otherwise
