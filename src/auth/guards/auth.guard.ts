@@ -1,6 +1,7 @@
 import {
   CanActivate,
   ExecutionContext,
+  ForbiddenException,
   Inject,
   Injectable,
   UnauthorizedException,
@@ -36,7 +37,7 @@ export class AuthGuard implements CanActivate {
       'ACCESS_TOKEN_SECRET',
     );
 
-    if (!token) throw new UnauthorizedException(MESSAGES.UNAUTHENTICATED);
+    if (!token) throw new ForbiddenException(MESSAGES.UNAUTHENTICATED);
 
     try {
       const isValidToken = await this.tokenService.checkIfTokenExist(token);

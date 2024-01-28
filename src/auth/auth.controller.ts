@@ -3,11 +3,12 @@ import {
   Body,
   Controller,
   Get,
+  Headers,
   HttpCode,
   HttpStatus,
   Post,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { SkipAuth } from 'src/common/decorators/skip-auth.decorator';
 import { MESSAGES } from 'src/constants';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
@@ -16,6 +17,7 @@ import { AuthService } from './auth.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
 
 @ApiTags('Auth')
+@ApiBearerAuth()
 @Controller('auth')
 export class AuthController {
   constructor(
@@ -69,8 +71,17 @@ export class AuthController {
     summary: 'Logout user',
     description: 'This endpoint is used to log out the authenticated user.',
   })
+  @SkipAuth()
   @Get('logout')
-  async logout() {}
+  async logout(@Headers() headers: any) {
+    const token = headers.authorization?.split(' ')[1];
+
+    if (!token) throw new BadRequestException(MESSAGES.LOGOUT_ERROR);
+
+    await this.authService.logout(token);
+
+    return { success: true, message: MESSAGES.LOGOUT_SUCCESS };
+  }
 
   @ApiOperation({
     summary: 'Create a new access token',
