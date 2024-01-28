@@ -3,7 +3,7 @@ export const MESSAGES = {
   CREATED: 'The Record has been created successfully',
   UPDATED: 'The Record has been updated successfully',
   DELETED: 'The Record has been deleted successfully',
-  LOGOUT: 'Logout successful',
+  LOGOUT_SUCCESS: 'Logout successful',
   UPLOAD_SUCCESS: 'The Record has been uploaded successfully',
   PASSWORD_TOKEN_SENT: 'Password reset token sent successfully',
   PASSWORD_RESET_SUCCESS: 'Password was reset successfully',
@@ -27,6 +27,7 @@ export const MESSAGES = {
   STRONG_PASSWORD:
     'password must be atleeast 8 character, and also contain at least one uppercase, lowercase, symbol and number',
   ERROR_OCCURED: 'an error occured',
+  LOGOUT_ERROR: 'an error occured logging out',
 };
 
 export const USER_GROUP = 'user_returned_details';
